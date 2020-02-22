@@ -1,17 +1,19 @@
+# return the directory of source files
+$Script:pathPanel= split-path -parent $MyInvocation.MyCommand.Definition
+
 #########################################################################
 #                        Add shared_assemblies                          #
 #########################################################################
 
+[System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+
 # Mahapps Library
-[System.Reflection.Assembly]::LoadFrom('Assembly\MahApps.Metro.dll')       | out-null
-[System.Reflection.Assembly]::LoadFrom('Assembly\System.Windows.Interactivity.dll') | out-null
+[System.Reflection.Assembly]::LoadFrom($pathPanel+'\Assembly\MahApps.Metro.dll')       | out-null
+[System.Reflection.Assembly]::LoadFrom($pathPanel+'\Assembly\System.Windows.Interactivity.dll') | out-null
 
 #########################################################################
 #                        Load Main Panel                                #
 #########################################################################
-
-# return the directory of source files
-$Script:pathPanel= split-path -parent $MyInvocation.MyCommand.Definition
 
 # function to load the xaml
 function LoadXaml ($filename){
